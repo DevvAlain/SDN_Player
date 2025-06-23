@@ -1,0 +1,64 @@
+<%- include('../partials/header') %>
+
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h3>Manage Members</h3>
+            </div>
+            <div class="card-body">
+                <% if (typeof message !=='undefined' ) { %>
+                    <div class="alert alert-<%= message.type %>">
+                        <%= message.text %>
+                    </div>
+                    <% } %>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Name</th>
+                                        <th>Year of Birth</th>
+                                        <th>Role</th>
+                                        <th>Created At</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% members.forEach(function(member) { %>
+                                        <tr>
+                                            <td>
+                                                <%= member.membername %>
+                                            </td>
+                                            <td>
+                                                <%= member.name %>
+                                            </td>
+                                            <td>
+                                                <%= member.YOB %>
+                                            </td>
+                                            <td>
+                                                <span class="badge <%= member.isAdmin ? 'bg-danger' : 'bg-primary' %>">
+                                                    <%= member.isAdmin ? 'Admin' : 'Member' %>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <%= new Date(member.createdAt).toLocaleDateString() %>
+                                            </td>
+                                            <td>
+                                                <form action="/admin/members/<%= member._id %>/toggle-admin"
+                                                    method="POST" class="d-inline">
+                                                    <button type="submit" class="btn btn-warning btn-sm">
+                                                        <%= member.isAdmin ? 'Remove Admin' : 'Make Admin' %>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>

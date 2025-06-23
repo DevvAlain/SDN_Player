@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="admin-dashboard-modern">
+    <%- include("../partials/header") %>
+
+        <!-- Modern Admin Hero -->
+        <section class="admin-hero-modern">
+            <div class="hero-background-pattern">
+                <div class="floating-shapes">
+                    <div class="shape circle-1"></div>
+                    <div class="shape circle-2"></div>
+                    <div class="shape square-1"></div>
+                    <div class="shape triangle-1"></div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="hero-content-modern">
+                    <div class="admin-badge-premium">
+                        <i class="fas fa-crown"></i>
+                        <span>Administrator Control Center</span>
+                    </div>
+
+                    <h1 class="admin-title-modern">
+                        <span class="title-icon">
+                            <i class="fas fa-chess-king"></i>
+                        </span>
+                        Master <span class="gradient-text">Dashboard</span>
+                        <br>Complete <span class="gradient-text">Control</span>
+                    </h1>
+
+                    <p class="admin-subtitle-modern">
+                        Command and orchestrate your entire football management ecosystem with precision,
+                        intelligence, and unmatched administrative power at your fingertips.
+                    </p>
+
+                    <div class="admin-quick-actions">
+                        <a href="/admin/accounts" class="action-card primary">
+                            <div class="action-icon">
+                                <i class="fas fa-users-cog"></i>
+                            </div>
+                            <div class="action-content">
+                                <h3>Account Control</h3>
+                                <p>Manage user accounts & permissions</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#team-management" class="action-card secondary">
+                            <div class="action-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="action-content">
+                                <h3>Team Management</h3>
+                                <p>Create & manage football teams</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="#player-management" class="action-card tertiary">
+                            <div class="action-icon">
+                                <i class="fas fa-running"></i>
+                            </div>
+                            <div class="action-content">
+                                <h3>Player </h3>
+                                <p>Manage elite player roster</p>
+                            </div>
+                            <div class="action-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modern Analytics Dashboard -->
+        <section class="analytics-dashboard">
+            <div class="container">
+                <div class="dashboard-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-chart-line"></i>
+                        System Analytics
+                    </h2>
+                    <p class="section-subtitle">Real-time insights into your football empire</p>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="metric-card teams-metric">
+                        <div class="metric-background">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="metric-content">
+                            <div class="metric-header">
+                                <h3>Championship Teams</h3>
+                                <div class="metric-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                            </div>
+                            <div class="metric-value" id="totalTeamsCount">
+                                <%= teams.length %>
+                            </div>
+                            <div class="metric-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>Active & Growing</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card players-metric">
+                        <div class="metric-background">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="metric-content">
+                            <div class="metric-header">
+                                <h3>Elite Athletes</h3>
+                                <div class="metric-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                            <div class="metric-value" id="totalPlayersCount">
+                                <%= players.length %>
+                            </div>
+                            <div class="metric-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>Talent Pool Expanding</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card captains-metric">
+                        <div class="metric-background">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="metric-content">
+                            <div class="metric-header">
+                                <h3>Team Leaders</h3>
+                                <div class="metric-icon">
+                                    <i class="fas fa-crown"></i>
+                                </div>
+                            </div>
+                            <div class="metric-value" id="totalCaptainsCount">
+                                <%= players.filter(p=> p.isCaptain).length %>
+                            </div>
+                            <div class="metric-trend stable">
+                                <i class="fas fa-equals"></i>
+                                <span>Leadership Strong</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card value-metric">
+                        <div class="metric-background">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="metric-content">
+                            <div class="metric-header">
+                                <h3>Portfolio Value</h3>
+                                <div class="metric-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                            </div>
+                            <div class="metric-value currency">$<span id="totalValueCount">
+                                    <%= players.reduce((sum, p)=> sum + p.cost, 0).toLocaleString() %>
+                                </span></div>
+                            <div class="metric-trend high-positive">
+                                <i class="fas fa-rocket"></i>
+                                <span>Exceptional Growth</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Management Section -->
+        <section class="management-section" id="team-management">
+            <div class="container">
+                <div class="management-card">
+                    <div class="management-header">
+                        <div class="header-content">
+                            <h2 class="management-title">
+                                <i class="fas fa-sitemap"></i>
+                                Team Management
+                            </h2>
+                            <p class="management-subtitle">Organize and control your championship teams</p>
+                        </div>
+                        <button type="button" class="btn-modern btn-primary" onclick="openAddTeamModal()">
+                            <i class="fas fa-plus"></i>
+                            <span>Add New Team</span>
+                        </button>
+                    </div>
+
+                    <div class="management-content">
+                        <% if (teams && teams.length> 0) { %>
+                            <div class="teams-grid">
+                                <% teams.forEach(function(team) { %>
+                                    <% const teamPlayers=players.filter(p=> p.team && p.team._id.toString() ===
+                                        team._id.toString()) %>
+                                        <div class="team-card">
+                                            <div class="team-header">
+                                                <div class="team-icon">
+                                                    <%= team.teamName.charAt(0).toUpperCase() %>
+                                                </div>
+                                                <div class="team-info">
+                                                    <h3 class="team-name">
+                                                        <%= team.teamName %>
+                                                    </h3>
+                                                    <p class="team-date">Founded <%= new
+                                                            Date(team.createdAt).toLocaleDateString('en-US',
+                                                            {month: 'short' , day: 'numeric' , year: 'numeric' }) %>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="team-stats">
+                                                <div class="team-stat">
+                                                    <i class="fas fa-users"></i>
+                                                    <span>
+                                                        <%= teamPlayers.length %> Players
+                                                    </span>
+                                                </div>
+                                                <div class="team-stat">
+                                                    <i class="fas fa-crown"></i>
+                                                    <span>
+                                                        <%= teamPlayers.filter(p=> p.isCaptain).length %> Captain
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="team-actions">
+                                                <button class="action-btn edit"
+                                                    onclick="openEditTeamModal('<%= team._id %>', '<%= team.teamName %>')"
+                                                    title="Edit Team">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <form action="/admin/teams/<%= team._id %>" method="POST"
+                                                    class="delete-form"
+                                                    onsubmit="return confirm('Are you sure you want to delete this team?')">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <button type="submit" class="action-btn delete" title="Delete Team">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <% }); %>
+                            </div>
+                            <% } else { %>
+                                <div class="empty-state">
+                                    <div class="empty-icon">
+                                        <i class="fas fa-sitemap"></i>
+                                    </div>
+                                    <h3>No Teams Yet</h3>
+                                    <p>Create your first championship team to get started</p>
+                                    <button type="button" class="btn-modern btn-primary" onclick="openAddTeamModal()">
+                                        <i class="fas fa-plus"></i>
+                                        <span>Create First Team</span>
+                                    </button>
+                                </div>
+                                <% } %>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Player Management Section -->
+        <section class="management-section" id="player-management">
+            <div class="container">
+                <div class="management-card">
+                    <div class="management-header">
+                        <div class="header-content">
+                            <h2 class="management-title">
+                                <i class="fas fa-running"></i>
+                                Player Management
+                            </h2>
+                            <p class="management-subtitle">Control your elite athlete </p>
+                        </div>
+                        <a href="/admin/players/new" class="btn-modern btn-primary">
+                            <i class="fas fa-plus"></i>
+                            <span>Add New Player</span>
+                        </a>
+                    </div>
+
+                    <div class="management-content">
+                        <% if (players && players.length> 0) { %>
+                            <div class="players-list">
+                                <% players.forEach(function(player) { %>
+                                    <div class="player-item">
+                                        <div class="player-avatar-section">
+                                            <img src="<%= player.image %>" alt="<%= player.playerName %>"
+                                                class="player-avatar">
+                                            <% if (player.isCaptain) { %>
+                                                <div class="captain-badge">
+                                                    <i class="fas fa-crown"></i>
+                                                </div>
+                                                <% } %>
+                                        </div>
+
+                                        <div class="player-details">
+                                            <h3 class="player-name">
+                                                <%= player.playerName %>
+                                                    <% if (player.isCaptain) { %>
+                                                        <span class="captain-tag">
+                                                            <i class="fas fa-crown"></i>
+                                                            Captain
+                                                        </span>
+                                                        <% } %>
+                                            </h3>
+                                            <div class="player-meta">
+                                                <span class="team-tag">
+                                                    <i class="fas fa-shield-alt"></i>
+                                                    <%= player.team ? player.team.teamName : 'No Team' %>
+                                                </span>
+                                                <span class="value-tag">
+                                                    <i class="fas fa-dollar-sign"></i>
+                                                    $<%= player.cost.toLocaleString() %>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="player-actions">
+                                            <a href="/admin/players/edit/<%= player._id %>" class="action-btn edit"
+                                                title="Edit Player">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form action="/admin/players/<%= player._id %>" method="POST"
+                                                class="delete-form"
+                                                onsubmit="return confirm('Are you sure you want to delete this player?')">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <button type="submit" class="action-btn delete" title="Delete Player">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <% }); %>
+                            </div>
+                            <% } else { %>
+                                <div class="empty-state">
+                                    <div class="empty-icon">
+                                        <i class="fas fa-running"></i>
+                                    </div>
+                                    <h3>No Players Yet</h3>
+                                    <p>Add your first elite athlete to the </p>
+                                    <a href="/admin/players/new" class="btn-modern btn-primary">
+                                        <i class="fas fa-plus"></i>
+                                        <span>Add First Player</span>
+                                    </a>
+                                </div>
+                                <% } %>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <%- include('../partials/footer') %>
+
+            <!-- Add Team Modal -->
+            <div class="modal-overlay" id="addTeamModal">
+                <div class="modal-container">
+                    <div class="modal-header">
+                        <h3 class="modal-title">
+                            <i class="fas fa-plus-circle"></i>
+                            Add New Team
+                        </h3>
+                        <button class="modal-close" onclick="closeAddTeamModal()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form id="addTeamForm" class="modal-form" action="/admin/teams" method="POST">
+                            <div class="form-group">
+                                <label for="addTeamName" class="form-label">
+                                    <i class="fas fa-shield-alt"></i>
+                                    Team Name
+                                </label>
+                                <input type="text" class="form-input" id="addTeamName" name="teamName"
+                                    placeholder="Enter team name..." required>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeAddTeamModal()">Cancel</button>
+                        <button class="btn btn-primary" onclick="submitAddTeam()">
+                            <i class="fas fa-plus"></i>
+                            Add Team
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Team Modal -->
+            <div class="modal-overlay" id="editTeamModal">
+                <div class="modal-container">
+                    <div class="modal-header">
+                        <h3 class="modal-title">
+                            <i class="fas fa-edit"></i>
+                            Edit Team
+                        </h3>
+                        <button class="modal-close" onclick="closeEditTeamModal()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form id="editTeamForm" class="modal-form">
+                            <input type="hidden" id="editTeamId">
+
+                            <div class="form-group">
+                                <label for="editTeamName" class="form-label">
+                                    <i class="fas fa-shield-alt"></i>
+                                    Team Name
+                                </label>
+                                <input type="text" class="form-input" id="editTeamName" name="teamName"
+                                    placeholder="Enter team name..." required>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeEditTeamModal()">Cancel</button>
+                        <button class="btn btn-primary" onclick="submitEditTeam()">
+                            <i class="fas fa-save"></i>
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toast Notification -->
+            <div class="toast-container" id="toastContainer"></div>
+
+            <script>
+                // Modal Functions
+                function openAddTeamModal() {
+                    document.getElementById('addTeamModal').style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                    document.getElementById('addTeamName').focus();
+                }
+
+                function closeAddTeamModal() {
+                    document.getElementById('addTeamModal').style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    document.getElementById('addTeamForm').reset();
+                }
+
+                function openEditTeamModal(teamId, teamName) {
+                    document.getElementById('editTeamId').value = teamId;
+                    document.getElementById('editTeamName').value = teamName;
+                    document.getElementById('editTeamModal').style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                    document.getElementById('editTeamName').focus();
+                }
+
+                function closeEditTeamModal() {
+                    document.getElementById('editTeamModal').style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    document.getElementById('editTeamForm').reset();
+                }
+
+                function submitAddTeam() {
+                    const form = document.getElementById('addTeamForm');
+                    const teamName = document.getElementById('addTeamName').value.trim();
+
+                    if (!teamName) {
+                        showToast('Please enter a team name', 'error');
+                        return;
+                    }
+
+                    // Show loading
+                    const submitBtn = event.target;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+                    submitBtn.disabled = true;
+
+                    form.submit();
+                }
+
+                function submitEditTeam() {
+                    const teamId = document.getElementById('editTeamId').value;
+                    const teamName = document.getElementById('editTeamName').value.trim();
+
+                    if (!teamName) {
+                        showToast('Please enter a team name', 'error');
+                        return;
+                    }
+
+                    // Show loading
+                    const submitBtn = event.target;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                    submitBtn.disabled = true;
+
+                    // Create form and submit
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = `/admin/teams/${teamId}`;
+
+                    const methodInput = document.createElement('input');
+                    methodInput.type = 'hidden';
+                    methodInput.name = '_method';
+                    methodInput.value = 'PUT';
+
+                    const nameInput = document.createElement('input');
+                    nameInput.type = 'hidden';
+                    nameInput.name = 'teamName';
+                    nameInput.value = teamName;
+
+                    form.appendChild(methodInput);
+                    form.appendChild(nameInput);
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+
+                // Toast Notification Function
+                function showToast(message, type = 'info') {
+                    const toastContainer = document.getElementById('toastContainer');
+                    const toast = document.createElement('div');
+                    toast.className = `toast toast-${type}`;
+
+                    const icon = type === 'success' ? 'check-circle' :
+                        type === 'error' ? 'exclamation-circle' :
+                            type === 'warning' ? 'exclamation-triangle' : 'info-circle';
+
+                    toast.innerHTML = `
+                    <div class="toast-content">
+                        <i class="fas fa-${icon}"></i>
+                        <span>${message}</span>
+                    </div>
+                    <button class="toast-close" onclick="this.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+
+                    toastContainer.appendChild(toast);
+
+                    setTimeout(() => {
+                        toast.style.opacity = '0';
+                        toast.style.transform = 'translateX(100%)';
+                        setTimeout(() => toast.remove(), 300);
+                    }, 4000);
+                }
+
+                // Close modals when clicking outside
+                document.addEventListener('click', function (e) {
+                    if (e.target.classList.contains('modal-overlay')) {
+                        if (e.target.id === 'addTeamModal') closeAddTeamModal();
+                        if (e.target.id === 'editTeamModal') closeEditTeamModal();
+                    }
+                });
+
+                // ESC key to close modals
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') {
+                        closeAddTeamModal();
+                        closeEditTeamModal();
+                    }
+                });
+
+                // Form enter key handling
+                document.getElementById('addTeamName').addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        submitAddTeam();
+                    }
+                });
+
+                document.getElementById('editTeamName').addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        submitEditTeam();
+                    }
+                });
+
+                // Initialize dashboard animations and counters
+                document.addEventListener('DOMContentLoaded', function () {
+                    console.log('Dashboard loaded, initializing animations...');
+                    // Animate metric counters with delay
+                    setTimeout(() => {
+                        animateCounters();
+                    }, 500);
+                    // Initialize scroll animations
+                    initScrollAnimations();
+                    // Setup smooth scrolling
+                    setupSmoothScrolling();
+                });
+
+                function animateCounters() {
+                    console.log('Starting counter animations...');
+
+                    const animateValue = (element, start, end, duration) => {
+                        if (!element) {
+                            console.log('Element not found for animation');
+                            return;
+                        }
+
+                        console.log(`Animating ${element.id} from ${start} to ${end}`);
+
+                        if (end === 0) {
+                            element.textContent = '0';
+                            return;
+                        }
+
+                        const range = end - start;
+                        let current = start;
+                        const increment = range > 50 ? Math.ceil(range / 50) : 1;
+                        const stepTime = Math.max(duration / 50, 20);
+
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= end) {
+                                element.textContent = end;
+                                clearInterval(timer);
+                            } else {
+                                element.textContent = current;
+                            }
+                        }, stepTime);
+                    };
+
+                    // Animate metric values
+                    const totalTeamsElement = document.getElementById('totalTeamsCount');
+                    const totalPlayersElement = document.getElementById('totalPlayersCount');
+                    const totalCaptainsElement = document.getElementById('totalCaptainsCount');
+                    const totalValueElement = document.getElementById('totalValueCount');
+
+                    console.log('Found elements:', {
+                        teams: !!totalTeamsElement,
+                        players: !!totalPlayersElement,
+                        captains: !!totalCaptainsElement,
+                        value: !!totalValueElement
+                    });
+
+                    if (totalTeamsElement) {
+                        const totalTeams = parseInt(totalTeamsElement.textContent || 0);
+                        console.log('Teams count:', totalTeams);
+                        animateValue(totalTeamsElement, 0, totalTeams, 1000);
+                    }
+
+                    if (totalPlayersElement) {
+                        const totalPlayers = parseInt(totalPlayersElement.textContent || 0);
+                        console.log('Players count:', totalPlayers);
+                        animateValue(totalPlayersElement, 0, totalPlayers, 1500);
+                    }
+
+                    if (totalCaptainsElement) {
+                        const totalCaptains = parseInt(totalCaptainsElement.textContent || 0);
+                        console.log('Captains count:', totalCaptains);
+                        animateValue(totalCaptainsElement, 0, totalCaptains, 800);
+                    }
+
+                    // Animate value counter (already formatted with commas)
+                    if (totalValueElement) {
+                        const valueText = totalValueElement.textContent;
+                        const valueNumber = parseInt(valueText.replace(/,/g, ''));
+                        console.log('Portfolio value:', valueNumber);
+
+                        if (valueNumber > 0) {
+                            let current = 0;
+                            const increment = Math.ceil(valueNumber / 100);
+                            const timer = setInterval(() => {
+                                current += increment;
+                                if (current >= valueNumber) {
+                                    totalValueElement.textContent = valueNumber.toLocaleString();
+                                    clearInterval(timer);
+                                } else {
+                                    totalValueElement.textContent = current.toLocaleString();
+                                }
+                            }, 15);
+                        } else {
+                            totalValueElement.textContent = '0';
+                        }
+                    }
+                }
+
+                function initScrollAnimations() {
+                    const observerOptions = {
+                        threshold: 0.1,
+                        rootMargin: '0px 0px -50px 0px'
+                    };
+
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                                entry.target.classList.add('animate-in');
+                            }
+                        });
+                    }, observerOptions);
+
+                    // Observe all cards and sections
+                    document.querySelectorAll('.metric-card, .team-card, .player-item, .management-card, .action-card').forEach(el => {
+                        observer.observe(el);
+                    });
+                }
+
+                function setupSmoothScrolling() {
+                    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                        anchor.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            const target = document.querySelector(this.getAttribute('href'));
+                            if (target) {
+                                target.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }
+                        });
+                    });
+                }
+            </script>
+
+            <style>
+                /* Modern Admin Dashboard Styles */
+                .admin-dashboard-modern {
+                    background: var(--body-bg);
+                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+                }
+
+                /* Modern Admin Hero */
+                .admin-hero-modern {
+                    position: relative;
+                    min-height: 80vh;
+                    display: flex;
+                    align-items: center;
+                    overflow: hidden;
+                    background: linear-gradient(135deg,
+                            rgba(99, 102, 241, 0.08) 0%,
+                            rgba(168, 85, 247, 0.08) 50%,
+                            rgba(236, 72, 153, 0.08) 100%);
+                }
+
+                .hero-background-pattern {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    overflow: hidden;
+                }
+
+                .floating-shapes {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .shape {
+                    position: absolute;
+                    animation: floatShapes 20s infinite ease-in-out;
+                }
+
+                .circle-1 {
+                    width: 200px;
+                    height: 200px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+                    top: 15%;
+                    left: -5%;
+                    animation-delay: 0s;
+                }
+
+                .circle-2 {
+                    width: 150px;
+                    height: 150px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
+                    bottom: 20%;
+                    right: -3%;
+                    animation-delay: -10s;
+                }
+
+                .square-1 {
+                    width: 100px;
+                    height: 100px;
+                    background: linear-gradient(135deg, rgba(236, 72, 153, 0.08), rgba(99, 102, 241, 0.08));
+                    transform: rotate(45deg);
+                    top: 60%;
+                    left: 80%;
+                    animation-delay: -5s;
+                }
+
+                .triangle-1 {
+                    width: 0;
+                    height: 0;
+                    border-left: 60px solid transparent;
+                    border-right: 60px solid transparent;
+                    border-bottom: 104px solid rgba(168, 85, 247, 0.08);
+                    top: 30%;
+                    right: 20%;
+                    animation-delay: -15s;
+                }
+
+                @keyframes floatShapes {
+
+                    0%,
+                    100% {
+                        transform: translateY(0px) rotate(0deg);
+                    }
+
+                    25% {
+                        transform: translateY(-30px) rotate(90deg);
+                    }
+
+                    50% {
+                        transform: translateY(-15px) rotate(180deg);
+                    }
+
+                    75% {
+                        transform: translateY(-45px) rotate(270deg);
+                    }
+                }
+
+                .hero-content-modern {
+                    position: relative;
+                    z-index: 2;
+                    text-align: center;
+                    max-width: 1000px;
+                    margin: 0 auto;
+                    padding: 2rem;
+                }
+
+                .admin-badge-premium {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    background: var(--glass-bg);
+                    backdrop-filter: blur(20px);
+                    border: 1px solid var(--glass-border);
+                    border-radius: 50px;
+                    padding: 1rem 2rem;
+                    margin-bottom: 2rem;
+                    font-weight: 600;
+                    color: var(--primary-color);
+                    animation: fadeInUp 1s ease-out;
+                }
+
+                .admin-title-modern {
+                    font-size: clamp(2.5rem, 6vw, 4.5rem);
+                    font-weight: 900;
+                    line-height: 1.1;
+                    margin-bottom: 2rem;
+                    color: var(--text-primary);
+                    animation: fadeInUp 1s ease-out 0.2s both;
+                }
+
+                .title-icon {
+                    display: inline-block;
+                    margin-right: 1rem;
+                    color: var(--primary-color);
+                }
+
+                .admin-subtitle-modern {
+                    font-size: 1.2rem;
+                    line-height: 1.7;
+                    color: var(--text-secondary);
+                    max-width: 600px;
+                    margin: 0 auto 3rem;
+                    animation: fadeInUp 1s ease-out 0.4s both;
+                }
+
+                .admin-quick-actions {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                    gap: 2rem;
+                    animation: fadeInUp 1s ease-out 0.6s both;
+                }
+
+                .action-card {
+                    background: var(--glass-bg);
+                    backdrop-filter: blur(20px);
+                    border: 1px solid var(--glass-border);
+                    border-radius: var(--border-radius-xl);
+                    padding: 2.5rem;
+                    text-decoration: none;
+                    display: flex;
+                    align-items: center;
+                    gap: 1.5rem;
+                    transition: all 0.3s ease;
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+
+                .action-card.animate-in {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                .action-card:hover {
+                    transform: translateY(-8px);
+                    box-shadow: var(--shadow-2xl);
+                    border-color: var(--primary-color-light);
+                    text-decoration: none;
+                }
+
+                .action-icon {
+                    width: 60px;
+                    height: 60px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: var(--border-radius-lg);
+                    font-size: 1.5rem;
+                    color: white;
+                }
+
+                .action-card.primary .action-icon {
+                    background: linear-gradient(135deg, #667eea, #764ba2);
+                }
+
+                .action-card.secondary .action-icon {
+                    background: linear-gradient(135deg, #f093fb, #f5576c);
+                }
+
+                .action-card.tertiary .action-icon {
+                    background: linear-gradient(135deg, #4facfe, #00f2fe);
+                }
+
+                .action-content {
+                    flex: 1;
+                }
+
+                .action-content h3 {
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                    color: var(--text-primary);
+                    margin-bottom: 0.5rem;
+                }
+
+                .action-content p {
+                    color: var(--text-secondary);
+                    margin: 0;
+                }
+
+                .action-arrow {
+                    color: var(--text-light);
+                    transition: all 0.3s ease;
+                }
+
+                .action-card:hover .action-arrow {
+                    transform: translateX(5px);
+                    color: var(--primary-color);
+                }
+
+                /* Analytics Dashboard */
+                .analytics-dashboard {
+                    padding: 4rem 0;
+                    background: var(--glass-bg);
+                }
+
+                .dashboard-header {
+                    text-align: center;
+                    margin-bottom: 3rem;
+                }
+
+                .section-title {
+                    font-size: 2.5rem;
+                    font-weight: 700;
+                    background: var(--primary-gradient);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    margin-bottom: 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+                }
+
+                .section-subtitle {
+                    font-size: 1.1rem;
+                    color: var(--text-secondary);
+                }
+
+                .analytics-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                    gap: 2rem;
+                }
+
+                .metric-card {
+                    position: relative;
+                    background: var(--glass-bg);
+                    backdrop-filter: blur(20px);
+                    border: 1px solid var(--glass-border);
+                    border-radius: var(--border-radius-xl);
+                    padding: 2.5rem;
+                    overflow: hidden;
+                    transition: all 0.4s ease;
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+
+                .metric-card.animate-in {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                .metric-card:hover {
+                    transform: translateY(-8px);
+                    box-shadow: var(--shadow-2xl);
+                }
+
+                .metric-background {
+                    position: absolute;
+                    top: -20px;
+                    right: -20px;
+                    width: 100px;
+                    height: 100px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 3rem;
+                    opacity: 0.1;
+                    z-index: 1;
+                }
+
+                .metric-content {
+                    position: relative;
+                    z-index: 2;
+                }
+
+                .metric-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 1.5rem;
+                }
+
+                .metric-header h3 {
+                    font-size: 1rem;
+                    font-weight: 600;
+                    color: var(--text-secondary);
+                    margin: 0;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }
+
+                .metric-icon {
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: var(--border-radius);
+                    color: white;
+                    font-size: 1rem;
+                }
+
+                .teams-metric .metric-icon {
+                    background: linear-gradient(135deg, #667eea, #764ba2);
+                }
+
+                .players-metric .metric-icon {
+                    background: linear-gradient(135deg, #f093fb, #f5576c);
+                }
+
+                .captains-metric .metric-icon {
+                    background: linear-gradient(135deg, #ffecd2, #fcb69f);
+                }
+
+                .value-metric .metric-icon {
+                    background: linear-gradient(135deg, #a8edea, #fed6e3);
+                }
+
+                .metric-value {
+                    font-size: 3rem;
+                    font-weight: 800;
+                    background: var(--primary-gradient);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    margin-bottom: 1rem;
+                    line-height: 1;
+                }
+
+                .metric-trend {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    font-size: 0.85rem;
+                    font-weight: 500;
+                }
+
+                .metric-trend.positive {
+                    color: #10b981;
+                }
+
+                .metric-trend.stable {
+                    color: #6366f1;
+                }
+
+                .metric-trend.high-positive {
+                    color: #f59e0b;
+                }
+
+                /* Management Sections */
+                .management-section {
+                    padding: 3rem 0;
+                }
+
+                .management-card {
+                    background: var(--glass-bg);
+                    backdrop-filter: blur(20px);
+                    border: 1px solid var(--glass-border);
+                    border-radius: var(--border-radius-xl);
+                    overflow: hidden;
+                    transition: all 0.6s ease;
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+
+                .management-card.animate-in {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                .management-header {
+                    padding: 2.5rem;
+                    border-bottom: 1px solid var(--glass-border);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 2rem;
+                }
+
+                .management-title {
+                    font-size: 2rem;
+                    font-weight: 700;
+                    background: var(--primary-gradient);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    margin-bottom: 0.5rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                .management-subtitle {
+                    color: var(--text-secondary);
+                    margin: 0;
+                }
+
+                .management-content {
+                    padding: 2.5rem;
+                }
+
+                /* Teams Grid */
+                .teams-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                    gap: 2rem;
+                }
+
+                .team-card {
+                    background: rgba(255, 255, 255, 0.7);
+                    border: 1px solid var(--glass-border);
+                    border-radius: var(--border-radius-lg);
+                    padding: 2rem;
+                    transition: all 0.3s ease;
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+
+                .team-card.animate-in {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                .team-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: var(--shadow-lg);
+                }
+
+                .team-header {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    margin-bottom: 1.5rem;
+                }
+
+                .team-icon {
+                    width: 50px;
+                    height: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: var(--border-radius-lg);
+                    background: var(--primary-gradient);
+                    color: white;
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                }
+
+                .team-name {
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                    color: var(--text-primary);
+                    margin: 0;
+                }
+
+                .team-date {
+                    color: var(--text-light);
+                    font-size: 0.85rem;
+                    margin: 0;
+                }
+
+                .team-stats {
+                    display: flex;
+                    gap: 1rem;
+                    margin-bottom: 1.5rem;
+                }
+
+                .team-stat {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 0.5rem 1rem;
+                    background: rgba(255, 255, 255, 0.5);
+                    border-radius: var(--border-radius);
+                    font-size: 0.85rem;
+                    font-weight: 500;
+                }
+
+                .team-stat i {
+                    color: var(--primary-color);
+                }
+
+                .team-actions {
+                    display: flex;
+                    gap: 0.5rem;
+                }
+
+                /* Players List */
+                .players-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1rem;
+                }
+
+                .player-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 1.5rem;
+                    padding: 1.5rem;
+                    background: rgba(255, 255, 255, 0.7);
+                    border: 1px solid var(--glass-border);
+                    border-radius: var(--border-radius-lg);
+                    transition: all 0.3s ease;
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+
+                .player-item.animate-in {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                .player-item:hover {
+                    transform: translateY(-3px);
+                    box-shadow: var(--shadow-lg);
+                }
+
+                .player-avatar-section {
+                    position: relative;
+                }
+
+                .player-avatar {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    border: 3px solid var(--primary-color-light);
+                }
+
+                .captain-badge {
+                    position: absolute;
+                    top: -5px;
+                    right: -5px;
+                    width: 20px;
+                    height: 20px;
+                    background: #f59e0b;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 0.7rem;
+                }
+
+                .player-details {
+                    flex: 1;
+                }
+
+                .player-name {
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    color: var(--text-primary);
+                    margin-bottom: 0.5rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                }
+
+                .captain-tag {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.25rem;
+                    padding: 0.25rem 0.5rem;
+                    background: rgba(245, 158, 11, 0.1);
+                    color: #f59e0b;
+                    border-radius: var(--border-radius);
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                }
+
+                .player-meta {
+                    display: flex;
+                    gap: 1rem;
+                    font-size: 0.85rem;
+                }
+
+                .team-tag,
+                .value-tag {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.25rem;
+                    color: var(--text-secondary);
+                }
+
+                .player-actions {
+                    display: flex;
+                    gap: 0.5rem;
+                }
+
+                /* Action Buttons */
+                .action-btn {
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: none;
+                    border-radius: var(--border-radius);
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    text-decoration: none;
+                }
+
+                .action-btn.edit {
+                    background: rgba(99, 102, 241, 0.1);
+                    color: #6366f1;
+                }
+
+                .action-btn.edit:hover {
+                    background: #6366f1;
+                    color: white;
+                    transform: scale(1.1);
+                }
+
+                .action-btn.delete {
+                    background: rgba(239, 68, 68, 0.1);
+                    color: #ef4444;
+                }
+
+                .action-btn.delete:hover {
+                    background: #ef4444;
+                    color: white;
+                    transform: scale(1.1);
+                }
+
+                /* Modern Buttons */
+                .btn-modern {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    padding: 1rem 2rem;
+                    border: none;
+                    border-radius: var(--border-radius-lg);
+                    font-weight: 600;
+                    text-decoration: none;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                }
+
+                .btn-modern.btn-primary {
+                    background: var(--primary-gradient);
+                    color: white;
+                }
+
+                .btn-modern.btn-primary:hover {
+                    transform: translateY(-2px);
+                    box-shadow: var(--shadow-lg);
+                }
+
+                .btn-modern.btn-secondary {
+                    background: var(--glass-bg);
+                    border: 1px solid var(--glass-border);
+                    color: var(--text-primary);
+                }
+
+                .btn-modern.btn-secondary:hover {
+                    background: var(--glass-bg-hover);
+                }
+
+                /* Empty State */
+                .empty-state {
+                    text-align: center;
+                    padding: 4rem 2rem;
+                }
+
+                .empty-icon {
+                    font-size: 4rem;
+                    color: var(--text-light);
+                    margin-bottom: 2rem;
+                }
+
+                .empty-state h3 {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--text-primary);
+                    margin-bottom: 1rem;
+                }
+
+                .empty-state p {
+                    color: var(--text-secondary);
+                    margin-bottom: 2rem;
+                }
+
+                /* Modern Modal */
+                .modern-modal {
+                    background: var(--glass-bg);
+                    backdrop-filter: blur(20px);
+                    border: 1px solid var(--glass-border);
+                    border-radius: var(--border-radius-xl);
+                }
+
+                .modern-modal .modal-header {
+                    border-bottom: 1px solid var(--glass-border);
+                }
+
+                .modern-modal .modal-footer {
+                    border-top: 1px solid var(--glass-border);
+                }
+
+                .modern-input {
+                    width: 100%;
+                    padding: 1rem;
+                    border: 2px solid var(--border-color);
+                    border-radius: var(--border-radius-lg);
+                    background: rgba(255, 255, 255, 0.9);
+                    transition: all 0.3s ease;
+                }
+
+                .modern-input:focus {
+                    border-color: var(--primary-color);
+                    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+                    outline: none;
+                }
+
+                .delete-form {
+                    display: inline;
+                }
+
+                /* Responsive Design */
+                @media (max-width: 768px) {
+                    .admin-quick-actions {
+                        grid-template-columns: 1fr;
+                    }
+
+                    .action-card {
+                        flex-direction: column;
+                        text-align: center;
+                    }
+
+                    .analytics-grid {
+                        grid-template-columns: 1fr;
+                    }
+
+                    .teams-grid {
+                        grid-template-columns: 1fr;
+                    }
+
+                    .management-header {
+                        flex-direction: column;
+                        text-align: center;
+                    }
+
+                    .player-item {
+                        flex-direction: column;
+                        text-align: center;
+                    }
+
+                    .player-meta {
+                        justify-content: center;
+                    }
+                }
+
+                /* Animation Classes */
+                @keyframes fadeInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(30px);
+                    }
+
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+            </style>
+</body>
+
+</html>
